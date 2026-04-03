@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ouralion</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.08);
+      --panel-border: rgba(255,255,255,0.14);
+      --text: #eef2ff;
+      --muted: #c7d2fe;
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139,92,246,0.28), transparent 28%),
+        radial-gradient(circle at top right, rgba(34,211,238,0.20), transparent 24%),
+        linear-gradient(180deg, #0b1020 0%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(16px);
+      background: rgba(11, 16, 32, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 10;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 2.6rem;
+      height: 2.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-mark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 6rem 0 4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1.02;
+      margin: 0 0 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      max-width: 42rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin: 0 0 1.75rem;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.95rem 1.35rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 12px 30px rgba(34,211,238,0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-card,
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+    }
+
+    .hero-card {
+      padding: 1.4rem;
+    }
+
+    .chart {
+      height: 320px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)),
+        linear-gradient(135deg, rgba(139,92,246,0.30), rgba(34,211,238,0.18));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart::before,
+    .chart::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 100% 20%, 16.66% 100%;
+      mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.85));
+    }
+
+    .line {
+      position: absolute;
+      inset: 0;
+    }
+
+    .line svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    section {
+      padding: 2rem 0 4rem;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.1;
+      margin: 0 0 1rem;
+    }
+
+    .section-copy {
+      max-width: 44rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .card {
+      padding: 1.4rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.2rem;
+      align-items: stretch;
+    }
+
+    .stats {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .stat {
+      padding: 1.3rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-box {
+      padding: 1.6rem;
+    }
+
+    form {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 4.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <span class="brand-mark">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+          <polygon points="50,8 90,92 10,92" fill="url(#grad)"/>
+          <circle cx="50" cy="58" r="10" fill="rgba(255,255,255,0.9)"/>
+        </svg>
+      </span>
+        <span>Ouralion</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#services">Capabilities</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Strategic Financial Alignment</span>
+          <h1>Positioning clients for clarity, confidence, and forward momentum.</h1>
+          <p>
+            Ouralion is a forward-looking organization dedicated to driving strategic alignment across dynamic financial landscapes. Leveraging a multidisciplinary approach from a diverse team of experts, Ouralion is committed to offering insight and actionable solutions for clients from all walks of life.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#contact">Connect with Ouralion</a>
+            <a class="btn btn-secondary" href="#about">Learn More</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="chart" aria-hidden="true">
+            <div class="line">
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M 0 76 C 10 72, 16 70, 24 64 S 38 46, 48 48 S 64 54, 72 36 S 86 14, 100 18" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity="0.95"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-title">Capabilities</div>
+        <h2>An elevated approach to insight and execution.</h2>
+        <p class="section-copy">
+          Ouralion brings together analytical perspective, strategic thinking, and practical guidance to support clients navigating complexity, change, and opportunity.
+        </p>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Strategic Advisory</h3>
+            <p>Supporting informed decision-making through refined perspective, structured thinking, and outcome-focused planning.</p>
+          </article>
+          <article class="card">
+            <h3>Integrated Insight</h3>
+            <p>Connecting information, context, and expertise into a cohesive view that helps reduce uncertainty and sharpen direction.</p>
+          </article>
+          <article class="card">
+            <h3>Client-Centered Execution</h3>
+            <p>Translating high-level priorities into practical next steps tailored to a broad range of needs and circumstances.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about">
+        <article class="card">
+          <div class="section-title">About Ouralion</div>
+          <h2>Built to navigate evolving financial environments.</h2>
+          <p class="section-copy">
+            With a diverse team of experts and a multidisciplinary mindset, Ouralion works to bring coherence to complexity. The organization emphasizes professionalism, responsiveness, and thoughtful collaboration, helping clients engage with financial decisions from a position of greater confidence.
+          </p>
+          <p class="section-copy" style="margin-bottom:0;">
+            Across every engagement, the focus remains consistent: clear communication, practical insight, and a commitment to meaningful progress.
+          </p>
+        </article>
+
+        <aside class="stats">
+          <div class="stat">
+            <strong>Forward-Looking</strong>
+            <span>A perspective grounded in long-term thinking and evolving market awareness.</span>
+          </div>
+          <div class="stat">
+            <strong>Multidisciplinary</strong>
+            <span>A collaborative approach shaped by diverse experience and broad professional insight.</span>
+          </div>
+          <div class="stat">
+            <strong>Actionable</strong>
+            <span>Recommendations designed to support clarity, confidence, and decisive movement.</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">Contact</div>
+        <h2>Start a conversation.</h2>
+        <p class="section-copy">
+          Reach out to learn more about Ouralion’s perspective and how its team can support your next step.
+        </p>
+
+        <div class="card contact-box">
+          <form>
+            <input type="text" name="name" placeholder="Your name" />
+            <input type="email" name="email" placeholder="Your email" />
+            <textarea name="message" placeholder="Tell us a little about your needs"></textarea>
+            <button type="submit" class="btn btn-primary">Send Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Ouralion. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
