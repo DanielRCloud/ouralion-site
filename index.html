@@ -322,15 +322,33 @@
     <div class="container nav">
       <a href="#top" class="brand">
         <span class="brand-mark">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#8b5cf6"/>
               <stop offset="100%" stop-color="#22d3ee"/>
             </linearGradient>
+            <radialGradient id="core" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+            </radialGradient>
           </defs>
-          <polygon points="50,8 90,92 10,92" fill="url(#grad)"/>
-          <circle cx="50" cy="58" r="10" fill="rgba(255,255,255,0.9)"/>
+
+          <!-- Outer ring -->
+          <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad)" stroke-width="3" opacity="0.6"/>
+
+          <!-- Rotated inner square -->
+          <rect x="35" y="35" width="50" height="50" fill="none" stroke="url(#grad)" stroke-width="3" transform="rotate(45 60 60)" opacity="0.8"/>
+
+          <!-- Triangle core -->
+          <polygon points="60,25 95,90 25,90" fill="url(#grad)" opacity="0.9"/>
+
+          <!-- Inner node -->
+          <circle cx="60" cy="65" r="10" fill="url(#core)"/>
+
+          <!-- Orbit lines -->
+          <ellipse cx="60" cy="60" rx="40" ry="18" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1.5" transform="rotate(25 60 60)"/>
+          <ellipse cx="60" cy="60" rx="40" ry="18" fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5" transform="rotate(-25 60 60)"/>
         </svg>
       </span>
         <span>Ouralion</span>
